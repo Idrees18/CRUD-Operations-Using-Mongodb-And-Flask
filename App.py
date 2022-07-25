@@ -1,0 +1,65 @@
+from datetime import datetime
+from bson import ObjectId
+from flask import Flask, redirect, render_template
+from pymongo import MongoClient
+from flask import request
+
+app = Flask(__name__)
+
+client = MongoClient("mongodb://localhost:27017/")
+db = client["Prescriptiondatabase"]  # or db = client.test_database
+collection = db["prescriptions"]  # or collection = db.test_collection$
+
+
+@app.route("/")
+def hello_world():
+    return render_template("index.html")
+
+
+@app.route("/create", methods=["POST"])
+def create():
+    data = {}
+    data["Patientkey"] = request.form["Patient_key"]
+    data["Prescriptionnumber"] = request.form["Prescription_Number"]
+    data["Date"] = request.form["Date"]
+    data["Doctorname"] = request.form["Doctorname"]
+    data["Prescription"] = request.form["Prescription"]
+    collection.insert_one(data)
+    return render_template("index1.html", text="Prescription Added Successfully")
+
+
+@app.route("/read", methods=["GET", "POST"])
+def read():
+    display = collection.find()
+    display1 = collection.find()
+    emp = list(display1)
+    return render_template("read.html", collection=display, t=emp)
+
+
+@app.route("/delete")
+def delete():
+    key = request.values.get("_id")
+    collection.delete_one({"_id": ObjectId(key)})
+    return redirect("/read")
+
+
+@app.route("/update", methods=["GET", "POST"])
+def update():
+    global id
+    id = request.values.get("_id")
+    task = collection.find({"_id": ObjectId(id)})
+    return render_template("update.html", tasks=task)
+
+
+@app.route("/updating", methods=["GET", "POST"])
+def updating():
+    updateDoctorname = request.form["updateDoctorname"]
+    Prescription = request.form["Prescription"]
+    Updatedate = datetime.today()
+    collection.update_one({"_id": ObjectId(id)}, {'$set': {
+                          "updateDoctorname": updateDoctorname, "Prescription": Prescription, "Updateddate": Updatedate}})
+    return render_template("updatesucessfull.html", text1="Updated Sucessfully")
+
+
+if __name__ == "__main__":
+    app.run(port=5500, debug=True, use_reloader=True)
