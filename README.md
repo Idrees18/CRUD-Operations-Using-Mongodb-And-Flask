@@ -19,5 +19,20 @@ mongodb compass can be used used as GUI<br/>
 
 ### Screenshots: <br/> 
 ![My Image](1.png)
+<br/> 
+![My Image](2.png)
+<br/> 
+![My Image](3.png)
+<br/> 
+![My Image](4.png)
+<br/>
+![My Image](5.png)
+<br/> 
+![My Image](6.png)
+<br/> 
+![My Image](7.png)
+<br/> 
+![My Image](8.png)
+<br/> 
 
 
