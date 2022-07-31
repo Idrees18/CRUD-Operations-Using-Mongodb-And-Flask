@@ -4,7 +4,7 @@ from flask import Flask, redirect, render_template
 from pymongo import MongoClient
 from flask import request
 
-myapp = Flask(__name__)
+app = Flask(__name__)
 
 client = MongoClient("mongodb+srv://Idrees:idrees@mongodb-crud.irnsp.mongodb.net/test")
 db = client["Prescriptiondatabase"]  # or db = client.test_database
@@ -69,4 +69,4 @@ def prescriptionslist():
 
 
 if __name__ == "__main__":
-    myapp.run(debug=True)
+    app.run(debug=True)
