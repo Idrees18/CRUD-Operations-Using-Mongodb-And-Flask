@@ -19,6 +19,7 @@ mongodb compass can be used used as GUI to interact or visualize the database<br
 * The prescription records can be searched Using the Patient Key for specific Patients Among all the other records.<br/> 
 
 ### link to the deployement : <br/>
+https://crud-mongdb.herokuapp.com/
 
 ### Screenshots: <br/> 
 ![My Image](1.png)
