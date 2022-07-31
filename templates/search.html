@@ -29,39 +29,54 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/read">View Prescriptions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Update Prescriptions</a>
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container my-3">
-        <h2>Update Prescription</h2>
-        {% for task in tasks %}
-        <form action="{{ url_for('updating')}}" method="post">
-            <div class="mb-3">
-                <label for="updateDoctorname" class="form-label">Doctor name</label>
-                <input type="text" class="form-control" name="updateDoctorname" id="updateDoctorname"
-                    placeholder="Updated By" required />
-            </div>
-            <div class="mb-3">
-                <label for="Prescription" class="form-label">Prescription</label>
-                <input type="text" class="form-control" name="Prescription" id="Prescription"
-                    value="{{task['Prescription']}}" placeholder="Write Prescription" required />
-            </div>
-            {% endfor %}
-            <center>
-                <button type="submit" class="btn btn-dark mx-1">Update</button>
-            </center>
-        </form>
+        <h2>Prescription Records</h2>
+        {% if a|length == 0 %}
+        <div class="alert alert-dark" role="alert">
+            No Prescriptions Available!
+        </div>
+        {% else %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Patient Key</th>
+                    <th scope="col">Prescription Number</th>
+                    <th scope="col">Issued Date</th>
+                    <th scope="col">Issued By Doctor</th>
+                    <th scope="col">Prescription</th>
+                    <th scope="col">Last Updated On</th>
+                    <th scope="col">Last Updated By Doctor</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prescriptions in collection %}
+                <tr>
+                    <td>{{prescriptions["Patientkey"]}}</td>
+                    <td>{{prescriptions["Prescriptionnumber"]}}</td>
+                    <td>{{prescriptions["Date"]}}</td>
+                    <td>{{prescriptions["Doctorname"]}}</td>
+                    <td>{{prescriptions["Prescription"]}}</td>
+                    <td>{{prescriptions["Updateddate"]}}</td>
+                    <td>{{prescriptions["updateDoctorname"]}}</td>
+                    <td>
+                        <a href="/update?_id={{prescriptions['_id']}}" type="button"
+                            class="btn btn-outline-primary btn-sm m-2">Update</button>
+                            <a href="/delete?_id={{prescriptions['_id']}}" type="button"
+                                class="btn btn-outline-danger btn-sm m-2">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
     </div>
-
 
     <!-- Optional JavaScript; choose one of the two! -->
 

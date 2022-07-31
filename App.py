@@ -6,7 +6,7 @@ from flask import request
 
 app = Flask(__name__)
 
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient("mongodb+srv://Idrees:idrees@mongodb-crud.irnsp.mongodb.net/test")
 db = client["Prescriptiondatabase"]  # or db = client.test_database
 collection = db["prescriptions"]  # or collection = db.test_collection$
 
@@ -59,6 +59,14 @@ def updating():
     collection.update_one({"_id": ObjectId(id)}, {'$set': {
                           "updateDoctorname": updateDoctorname, "Prescription": Prescription, "Updateddate": Updatedate}})
     return render_template("updatesucessfull.html", text1="Updated Sucessfully")
+
+
+@app.route("/prescriptionslist", methods=["GET", "POST"])
+def prescriptionslist():
+    searchquery = request.form["search"]
+    result = collection.find({"Patientkey": searchquery})
+    emp1 = list(result)
+    return render_template("search.html", collection=emp1, a=emp1)
 
 
 if __name__ == "__main__":
