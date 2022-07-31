@@ -8,7 +8,8 @@ The Project Demonstrates the working of CRUD-Operations Using mongodb as the dat
 4.html <br/>
 5.css <br/>
 
-mongodb compass can be used used as GUI<br/>
+Install mongodb community edition<br/> 
+mongodb compass can be used used as GUI to interact or visualize the database<br/>
 
 ### Abstract : <br/> 
 * The idea implemented is the doctor addding/giving Prescriptions to the Patient.<br/> 
@@ -16,6 +17,8 @@ mongodb compass can be used used as GUI<br/>
 * The name of the doctor and time appears that last updated the Prescription record.<br/>
 * The Prescription records can be viewed.<br/>
 * The prescription records can be searched Using the Patient Key for specific Patients Among all the other records.<br/> 
+
+### link to the deployement : <br/>
 
 ### Screenshots: <br/> 
 ![My Image](1.png)
