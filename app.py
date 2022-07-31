@@ -56,8 +56,7 @@ def updating():
     updateDoctorname = request.form["updateDoctorname"]
     Prescription = request.form["Prescription"]
     Updatedate = datetime.today()
-    collection.update_one({"_id": ObjectId(id)}, {'$set': {
-                          "updateDoctorname": updateDoctorname, "Prescription": Prescription, "Updateddate": Updatedate}})
+    collection.update_one({"_id": ObjectId(id)}, {'$set': {"updateDoctorname": updateDoctorname, "Prescription": Prescription, "Updateddate": Updatedate}})
     return render_template("updatesucessfull.html", text1="Updated Sucessfully")
 
 
@@ -70,4 +69,4 @@ def prescriptionslist():
 
 
 if __name__ == "__main__":
-    app.run(port=5500, debug=True, use_reloader=True)
+    app.run(debug=True)
