@@ -10,12 +10,12 @@ client = MongoClient("mongodb+srv://Idrees:idrees@mongodb-crud.irnsp.mongodb.net
 db = client["Prescriptiondatabase"]  # or db = client.test_database
 collection = db["prescriptions"]  # or collection = db.test_collection$
 
-
+#routing the home page 
 @app.route("/")
 def hello_world():
     return render_template("index.html")
 
-
+#create function and route to add data
 @app.route("/create", methods=["POST"])
 def create():
     data = {}
@@ -27,7 +27,7 @@ def create():
     collection.insert_one(data)
     return render_template("index1.html", text="Prescription Added Successfully")
 
-
+#read the data
 @app.route("/read", methods=["GET", "POST"])
 def read():
     display = collection.find()
@@ -35,14 +35,14 @@ def read():
     emp = list(display1)
     return render_template("read.html", collection=display, t=emp)
 
-
+#delete the data
 @app.route("/delete")
 def delete():
     key = request.values.get("_id")
     collection.delete_one({"_id": ObjectId(key)})
     return redirect("/read")
 
-
+#update the data
 @app.route("/update", methods=["GET", "POST"])
 def update():
     global id
@@ -50,7 +50,7 @@ def update():
     task = collection.find({"_id": ObjectId(id)})
     return render_template("update.html", tasks=task)
 
-
+#update form 
 @app.route("/updating", methods=["GET", "POST"])
 def updating():
     updateDoctorname = request.form["updateDoctorname"]
@@ -59,7 +59,7 @@ def updating():
     collection.update_one({"_id": ObjectId(id)}, {'$set': {"updateDoctorname": updateDoctorname, "Prescription": Prescription, "Updateddate": Updatedate}})
     return render_template("updatesucessfull.html", text1="Updated Sucessfully")
 
-
+#search the data using the patient key
 @app.route("/prescriptionslist", methods=["GET", "POST"])
 def prescriptionslist():
     searchquery = request.form["search"]
